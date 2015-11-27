@@ -13,6 +13,38 @@ srt_file = './tmr.srt'
 timeline = 'https://www.facebook.com/username'
 ##############
 
+
+class Actor:
+'''
+A class that represents a actor/user. Every instance will be a browser with a user logged in.
+'''
+
+    def setProxy(self, user_proxy):
+        self.myproxy = user_proxy
+
+    def name(self):
+        return self.name
+
+    def startBrowser():
+        if myproxy:
+            proxy = Proxy({
+            'proxyType': ProxyType.MANUAL,
+            'httpProxy': self.myproxy,
+            'ftpProxy': self.myproxy,
+            'sslProxy': self.myproxy,
+            'noProxy': ''
+            })
+
+            self.browser = webdriver.Firefox(proxy = proxy)
+        else:
+            self.browser = webdriver.Firefox()
+
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
+        self.myproxy = ''
+
+
 def fb_login(browser, username, password):
     username_field = browser.find_element_by_id('email')
     username_field.click()
@@ -22,6 +54,7 @@ def fb_login(browser, username, password):
     password_field.send_keys(password)
     login_btn = browser.find_element_by_id('loginbutton')
     login_btn.click()
+
 
 def startPlay():
     myproxy = "10.3.100.207:8080"
@@ -55,7 +88,7 @@ def startPlay():
         print name_elem.text
 
         time.sleep(10)
-        print("Successfully Logined into Facebook.com")
+        print("Successfully Logged into Facebook.com")
 
     except KeyboardInterrupt:
         for browser in browsers:
@@ -65,6 +98,7 @@ def startPlay():
         browser.close()
 
 if __name__ == "__main__":
+
     startPlay()
     #subs = pysrt.open(srt_file)
     #for subtitle in subs:
